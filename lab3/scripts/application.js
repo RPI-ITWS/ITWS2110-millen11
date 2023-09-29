@@ -49,29 +49,32 @@ async function displayWeatherData() {
   //Displaying weather image based on current conditions
   let weatherID = data["weather"]["id"];
   if (weatherID >= 200 && weatherID <= 232) {
-    $("weatherImage").attr("src", "../svg/static/thunder.svg");
-    $("backgroundWeather").css("background-image", "url(../img/thunder.jpg)");
+    $("#weatherImage").attr("src", "../svg/static/thunder.svg");
+    $("#backgroundWeather").css(
+      "background-image",
+      "url('../img/thunder.jpeg')"
+    );
   } else if (weatherID >= 300 && weatherID <= 321) {
-    $("weatherImage").attr("src", "../svg/static/rainy-7.svg");
-    $("backgroundWeather").css("background-image", "url(../img/rain.jpg)");
+    $("#weatherImage").attr("src", "../svg/static/rainy-7.svg");
+    $("#backgroundWeather").css("background-image", "url('../img/rain.jpg')");
   } else if (weatherID >= 500 && weatherID <= 531) {
-    $("weatherImage").attr("src", "../svg/static/rainy-1.svg");
-    $("backgroundWeather").css("background-image", "url(../img/rain.jpg)");
+    $("#weatherImage").attr("src", "../svg/static/rainy-1.svg");
+    $("#backgroundWeather").css("background-image", "url('../img/rain.jpg')");
   } else if (weatherID >= 600 && weatherID <= 622) {
-    $("weatherImage").attr("src", "../svg/static/snowy-1.svg");
-    $("backgroundWeather").css("background-image", "url(../img/snow.jpg)");
+    $("#weatherImage").attr("src", "../svg/static/snowy-1.svg");
+    $("#backgroundWeather").css("background-image", "url('../img/snow.jpg')");
   } else if (weatherID === 800) {
-    $("weatherImage").attr("src", "./svg/static/day.svg");
-    $("backgroundWeather").css("background-image", "url(../img/clear.jpg)");
+    $("#weatherImage").attr("src", "./svg/static/day.svg");
+    $("#backgroundWeather").css("background-image", "url('../img/clear.jpg')");
   } else if (weatherID >= 801 && weatherID <= 804) {
-    $("weatherImage").attr("src", ".././svg/static/cloudy.svg");
-    $("backgroundWeather").css("background-image", "url(../img/cloud.jpg)");
+    $("#weatherImage").attr("src", ".././svg/static/cloudy.svg");
+    $("#backgroundWeather").css("background-image", "url('../img/cloud.jpg')");
   }
 
-  $("#currentTemp").html(data["main"]["temp"] + " °F");
-  $("#feels_like").html("Feels like: " + data["main"]["feels_like"] + " °F");
-  $("#minTemp").html("Minimum: " + data["main"]["temp_min"] + " °F");
-  $("#maxTemp").html("Maximum: " + data["main"]["temp_max"] + " °F");
+  $("#currentTemp").html(data["main"]["temp"] + "°F");
+  $("#feels_like").html("Feels like: " + data["main"]["feels_like"] + "°F");
+  $("#minTemp").html("Minimum: " + data["main"]["temp_min"] + "°F");
+  $("#maxTemp").html("Maximum: " + data["main"]["temp_max"] + "°F");
 
   //City & "Current" time
   $("#city").html(data["name"] + ", NY");

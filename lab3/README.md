@@ -1,7 +1,7 @@
 Lab 3
 
-OpenWeatherMap API Key: b0bcf16f78f4e42826a910428b5a38cc
-News API: pub_299289adfa56688cba193d66f9a9f700e1588,https://newsdata.io/
+OpenWeatherMap API Key: b0bcf16f78f4e42826a910428b5a38cc, https://openweathermap.org/current
+News API: 8720ffe5f19547c7a15e6ceb0cfebe88,https://newsapi.org/
 jQuery: https://code.jquery.com/jquery-3.7.1.min.js
 
 Formatters:
@@ -87,3 +87,6 @@ Catalog:
 
 10. Humidity/wind, etc, not displaying their respective data on same line
     a) Not fixed, but no big deal
+
+11. "Feels like" data will not display everything on a single line
+    a) Cannot come up with the fix

@@ -1,81 +1,5 @@
-body {
-  /* background-color: #cbc3e3; */
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 25px;
-  overflow-x: hidden;
-}
-
-.centerFooter {
-  /*Center's footer*/
-  margin-top: 65%;
-  margin-bottom: 2%;
-  text-align: center;
-}
-
-summary {
-  font-size: 28px;
-}
-
-#weatherImage {
-  height: 200px;
-  width: 200px;
-}
-details[open] summary {
-  border: 2px solid black;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-bottom: 20%;
-}
-
-details table {
-  margin-top: 5%;
-}
-
-tr td {
-  font-size: 22px;
-  padding: 2%;
-  padding-left: 20%;
-}
-
-#sunriseTime,
-#sunsetTime {
-  padding-left: 50%;
-}
-
-#parentContainer,
-#newsContainer {
-  background-color: white;
-  border: 3px solid black;
-  float: left;
-  padding-top: 10px;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-bottom: 10%;
-  margin: 10% 5% 10% 5%;
-}
-
-#tempContainer {
-  float: right;
-}
-
-#tempContainer h2,
-#tempContainer h3 {
-  padding-bottom: 2%;
-}
-
-#newsContainer {
-  float: right;
-}
-
-#timeDataFetched {
-  color: #aaa;
-  font-size: small;
-  text-align: end;
-  float: left;
-}
-
+/* Navigation bar */
 .navBar {
-  /*Navigation bar*/
   background-color: rgb(29, 28, 28);
   color: white;
   font-size: 30px;
@@ -88,15 +12,104 @@ tr td {
   margin: 0 0 5px 0;
 }
 .navBar a {
-  /*navBar color for text/links*/
+  /* NavBar color for text/links */
   color: white;
 }
 .navBar a:hover {
-  /*Hover color on navBar text*/
+  /* Hover color on NavBar text */
   color: #00ffff;
 }
 
+/* Background and fonts */
+body {
+  /* background-color: #cbc3e3; */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 25px;
+  overflow-x: hidden;
+}
+
+#city {
+  float: left;
+  font-size: 30px;
+}
+
+/* Weather Image */
+#weatherImage {
+  height: 200px;
+  width: 200px;
+}
+
+/* Details summary open */
+details[open] summary {
+  border: 2px solid black;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 22%;
+}
+
+/* Details table */
+details table {
+  margin-top: 5%;
+  font-size: 30px;
+}
+
+/* Table cells */
+tr td {
+  font-size: 28px;
+  padding-left: 15%;
+  padding-bottom: 5%;
+}
+
+/* Sunrise and Sunset Time */
+#sunriseTime,
+#sunsetTime {
+  padding-left: 30%;
+  padding-right: none;
+  /* display: inline; */
+}
+
+/* Containers */
+#parentContainer,
+#newsContainer {
+  background-color: white;
+  border: 3px solid black;
+  float: left;
+  padding-top: 10px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 10%;
+  margin: 10% 5% 10% 5%;
+}
+
+/* Temperature Container */
+#currentTemp,
+#feels_like,
+#minTemp,
+#maxTemp {
+  float: right;
+  font-size: 40px;
+  font-weight: bold;
+  padding-bottom: 5%;
+  margin-left: 15%;
+  margin-right: 10%;
+}
+
+/* News Container */
+#newsContainer {
+  float: right;
+}
+
+/* Time Data Fetched */
+#timeDataFetched {
+  color: #aaa;
+  padding-top: 10%;
+  font-size: small;
+  text-align: end;
+  float: left;
+}
+
+/* Space Out Nav Content */
 .spaceOutNavContent {
-  /*Spacing between elements in navBar*/
+  /* Spacing between elements in NavBar */
   padding: 5%;
 }

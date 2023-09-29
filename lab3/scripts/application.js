@@ -19,14 +19,14 @@ function callOpenWeather() {
 function callNews() {
   //call request to newsdata.io for the news
   let newsURL =
-    "https://newsdata.io/api/1/news?apikey=pub_299289adfa56688cba193d66f9a9f700e1588&language=en";
+    "https://newsapi.org/v2/everything?q=keyword&apiKey=8720ffe5f19547c7a15e6ceb0cfebe88";
 
   return fetch(newsURL)
     .then((response) => {
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error("Could not call newsdata.io");
+        throw new Error("Could not call newsapi.org");
       }
     })
     .catch((error) => {
@@ -92,18 +92,19 @@ async function displayNewsData() {
   let data = await callNews();
   console.log(data);
   let articleCount = 1;
-  for (article_count in data["results"]) {
-    let article = data["results"][articleCount];
+  for (article_count in data["articles"]) {
+    let article = data["articles"][articleCount];
+    console.log(article);
     if (articleCount <= 3) {
-      if (article["image_url"] != null) {
+      if (article["urlToImage"] != null) {
         $("#article" + articleCount + "title").html(article["title"]);
         console.log(article["title"]);
-        $("#article" + articleCount + "img").attr("src", article["image_url"]);
-        $("#article" + articleCount + "link").attr("href", article["link"]);
+        $("#article" + articleCount + "img").attr("src", article["urlToImage"]);
+        $("#article" + articleCount + "link").attr("href", article["url"]);
+        articleCount += 1;
       } else {
         continue;
       }
-      articleCount += 1;
     } else {
       break;
     }

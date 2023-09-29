@@ -76,7 +76,6 @@ tr td {
   float: left;
   padding-top: 10px;
   padding-left: 5%;
-  padding-right: 5%;
   padding-bottom: 10%;
   margin: 10% 5% 10% 5%;
 }
@@ -94,9 +93,24 @@ tr td {
   margin-right: 10%;
 }
 
+#article1img,
+#article2img,
+#article3img {
+  height: 200px;
+  width: 200px;
+}
+
+#article1title,
+#article2title,
+#article3title {
+  font-size: 28px;
+}
+
 /* News Container */
 #newsContainer {
   float: right;
+  padding-left: none;
+  margin: none;
 }
 
 /* Time Data Fetched */

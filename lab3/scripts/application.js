@@ -97,7 +97,13 @@ async function displayNewsData() {
     console.log(article);
     if (articleCount <= 3) {
       if (article["urlToImage"] != null) {
-        $("#article" + articleCount + "title").html(article["title"]);
+        let titleLink = $("<a>")
+          .attr("href", article["url"])
+          .text(article["title"]);
+        let titleElement = $("<h2>")
+          .attr("id", "article" + articleCount + "title")
+          .append(titleLink);
+        $("#article" + articleCount + "title").html(titleElement);
         console.log(article["title"]);
         $("#article" + articleCount + "img").attr("src", article["urlToImage"]);
         $("#article" + articleCount + "link").attr("href", article["url"]);

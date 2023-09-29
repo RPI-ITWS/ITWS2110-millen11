@@ -12,7 +12,7 @@
     <script src="./scripts/application.js"></script>
   </head>
 
-  <body>
+  <body id="backgroundWeather">
     <div class="navBar">
       <a class="spaceOutNavContent" href="../../index.html">Home</a>
       <a class="spaceOutNavContent" href="../labs.html">Labs</a>
@@ -24,40 +24,64 @@
       <details>
         <!-- Shows the current day and the next 7 days of weather -->
         <summary>
-          <img id="weatherImage" alt="Weather Image" />
+          <img
+            id="weatherImage"
+            src="../lab3/svg/static/day.svg"
+            alt="Weather Image"
+          />
 
           <div id="tempContainer">
-            <h2 id="currentTemp"></h2>
-            <h3 id="feels_like"></h3>
-            <h3 id="minTemp"></h3>
-            <h3 id="maxTemp"></h3>
+            <h2 id="currentTemp">1</h2>
+            <h3 id="feels_like">1</h3>
+            <h3 id="minTemp">1</h3>
+            <h3 id="maxTemp">1</h3>
+            <h3 id="city">1</h3>
+            <h5 id="timeDataFetched">1</h5>
           </div>
-
-          <h3 id="city"></h3>
-          <h5 id="timeDataFetched"></h5>
         </summary>
         <table>
           <tr>
-            <td id="humidity"></td>
-            <td id="sunriseTime"></td>
+            <td id="humidity">1</td>
+            <td id="sunriseTime">1</td>
           </tr>
           <tr>
-            <td id="windSpeed"></td>
-            <td id="sunsetTime"></td>
+            <td id="windSpeed">1</td>
+            <td id="sunsetTime">1</td>
           </tr>
           <tr>
-            <td id="cloudiness"></td>
+            <td id="cloudiness">1</td>
           </tr>
         </table>
       </details>
     </div>
-    <!-- <div id="newsContainer">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus amet
-        quisquam tempore voluptas, error recusandae nihil nemo repudiandae,
-        ipsa, culpa tenetur laboriosam facilis modi nesciunt ipsam esse
-        exercitationem. Quisquam, minus.
-      </p>
-    </div> -->
+    <div id="newsContainer">
+      <div id="article1">
+        <h2 id="article1title"><a id="article1link">1</a></h2>
+        <img
+          id="article1img"
+          src="../lab3/svg/static/day.svg"
+          alt="Article Image"
+        />
+      </div>
+      <div id="article2">
+        <h2 id="article2title"><a id="article2link">1</a></h2>
+        <img
+          id="article2img"
+          src="../lab3/svg/static/day.svg"
+          alt="Article Image"
+        />
+      </div>
+      <div id="article3">
+        <h2 id="article3title"><a id="article3link">1</a></h2>
+        <img
+          id="article3img"
+          src="../lab3/svg/static/day.svg"
+          alt="Article Image"
+        />
+      </div>
+    </div>
+    <footer onclick="location.href='#'" class="centerFooter">
+      Created in ITWS 2110: Web Systems Developement
+    </footer>
   </body>
 </html>

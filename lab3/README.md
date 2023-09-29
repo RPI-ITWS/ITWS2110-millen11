@@ -1,7 +1,8 @@
 Lab 3
 
 OpenWeatherMap API Key: b0bcf16f78f4e42826a910428b5a38cc, https://openweathermap.org/current
-News API: 8720ffe5f19547c7a15e6ceb0cfebe88,https://newsapi.org/
+Old news API: 8720ffe5f19547c7a15e6ceb0cfebe88,https://newsapi.org/
+NBA API: https://documenter.getpostman.com/view/24232555/2s93shzpR3?ref=apilist.fun
 jQuery: https://code.jquery.com/jquery-3.7.1.min.js
 
 Bootstrap:
@@ -60,6 +61,9 @@ https://www.google.com/search?q=rain+weather+cartoon&tbm=isch&ved=2ahUKEwjnrIDDt
 
 https://www.google.com/search?q=rain+weather+cartoon&tbm=isch&ved=2ahUKEwjnrIDDt8-BAxUTOlkFHTQKCWEQ2-cCegQIABAA&oq=rain+weather+cartoon&gs_lcp=CgNpbWcQAzIFCAAQgAQyBQgAEIAEMgYIABAFEB4yBggAEAgQHjoECCMQJzoGCAAQBxAeOggIABAFEAcQHlC1CFjTH2CaImgAcAB4AIABRIgBtwKSAQE2mAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=Do8WZeftIpP05NoPtJSkiAY&bih=1153&biw=2400&rlz=1C1VDKB_enUS1021US1021#imgrc=EDQIXUNkj37VcM
 
+How to round to nearest tenth in JS:
+http://www.javascripter.net/faq/rounding.htm#:~:text=Rounding%20a%20Number%20in%20JavaScript,round()&text=round%20method%3A,round%20X%20to%20tenths%20Math.
+
 Catalog:
 
 1. Needed to look up how to add a favicon to my application
@@ -95,3 +99,6 @@ Catalog:
     a) Cannot come up with the fix
 
 12. Used Bootstrap to fix issues with aligning the weather and news columns
+
+13. Ran out of requests for one news api, so I had to use another that supposedly does not support non-localhost environments.
+    a) Fix: Use NBA API

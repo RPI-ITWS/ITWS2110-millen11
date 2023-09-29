@@ -16,17 +16,22 @@ function callOpenWeather() {
     });
 }
 
-function callNews() {
+function callNBA() {
   //call request to newsdata.io for the news
-  let newsURL =
-    "https://newsapi.org/v2/everything?q=keyword&apiKey=8720ffe5f19547c7a15e6ceb0cfebe88";
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+  let nbaURL =
+    "https://nba-stats-db.herokuapp.com/api/playerdata/topscorers/total/season/2011/";
 
-  return fetch(newsURL)
+  return fetch(nbaURL, requestOptions)
     .then((response) => {
       if (response.ok) {
+        // console.log(response.json());
         return response.json();
       } else {
-        throw new Error("Could not call newsapi.org");
+        throw new Error("Could not call documentergetpostman.com.");
       }
     })
     .catch((error) => {
@@ -37,7 +42,7 @@ function callNews() {
 // callOpenWeather().then((OpenWeatherData) => {});
 $(document).ready(() => {
   displayWeatherData();
-  displayNewsData();
+  displayNBAData();
 });
 
 async function displayWeatherData() {
@@ -88,31 +93,16 @@ async function displayWeatherData() {
   $("#sunsetTime").html("Sunsets at " + Date(data["sys"]["sunset"]));
 }
 
-async function displayNewsData() {
-  let data = await callNews();
-  console.log(data);
-  let articleCount = 1;
-  for (article_count in data["articles"]) {
-    let article = data["articles"][articleCount];
-    console.log(article);
-    if (articleCount <= 3) {
-      if (article["urlToImage"] != null) {
-        let titleLink = $("<a>")
-          .attr("href", article["url"])
-          .text(article["title"]);
-        let titleElement = $("<h2>")
-          .attr("id", "article" + articleCount + "title")
-          .append(titleLink);
-        $("#article" + articleCount + "title").html(titleElement);
-        console.log(article["title"]);
-        $("#article" + articleCount + "img").attr("src", article["urlToImage"]);
-        $("#article" + articleCount + "link").attr("href", article["url"]);
-        articleCount += 1;
-      } else {
-        continue;
-      }
-    } else {
-      break;
-    }
+async function displayNBAData() {
+  let data = await callNBA();
+  for (let i = 0; i < 40; i++) {
+    let playerName = data["results"][i]["player_name"];
+    let pointsSeason = data["results"][i]["PTS"];
+    let gamesPlayed = data["results"][i]["games"];
+    let averagePoints = pointsSeason / gamesPlayed;
+    $("#playerHeader").append("<p class = 'unbold'>" + playerName + "</p>");
+    $("#pointsScored").append(
+      "<p class = 'unbold'>" + Math.round(10 * averagePoints) / 10 + "</p>"
+    );
   }
 }

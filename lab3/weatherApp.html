@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>millen11: Weather Application</title>
     <link rel="icon" type="image/png" href="./svg/static/weather.svg" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="application.css" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,66 +25,68 @@
     </div>
 
     <!-- Genral container that will hold/display all of the weather data -->
-    <div id="parentContainer">
-      <details id="weatherContent">
-        <!-- Shows the current days weather -->
-        <summary>
-          <img
-            id="weatherImage"
-            src="../lab3/svg/static/day.svg"
-            alt="Weather Image"
-          />
+    <div class="row">
+      <div id="parentContainer" class="col">
+        <details id="weatherContent">
+          <!-- Shows the current days weather -->
+          <summary>
+            <img
+              id="weatherImage"
+              src="../lab3/svg/static/day.svg"
+              alt="Weather Image"
+            />
 
-          <code id="currentTemp">1</code>
-          <br />
-          <code id="feels_like">1</code>
-          <br />
-          <code id="minTemp">1</code>
-          <br />
-          <code id="maxTemp">1</code>
-          <br />
-          <code id="city">1</code>
-          <code id="timeDataFetched">1</code>
-        </summary>
-        <table>
-          <tr>
-            <td id="humidity">1</td>
-            <td id="sunriseTime">1</td>
-          </tr>
-          <tr>
-            <td id="windSpeed">1</td>
-            <td id="sunsetTime">1</td>
-          </tr>
-          <tr>
-            <td id="cloudiness">1</td>
-          </tr>
-        </table>
-      </details>
-    </div>
-    <div id="newsContainer" class="titles">
-      <div id="article1">
-        <h2 id="article1title"><a id="article1link">1</a></h2>
-        <img
-          id="article1img"
-          src="../lab3/svg/static/day.svg"
-          alt="Article Image"
-        />
+            <code id="currentTemp">1</code>
+            <br />
+            <code id="feels_like">1</code>
+            <br />
+            <code id="minTemp">1</code>
+            <br />
+            <code id="maxTemp">1</code>
+            <br />
+            <code id="city">1</code>
+            <code id="timeDataFetched">1</code>
+          </summary>
+          <table>
+            <tr>
+              <td id="humidity">1</td>
+              <td id="sunriseTime">1</td>
+            </tr>
+            <tr>
+              <td id="windSpeed">1</td>
+              <td id="sunsetTime">1</td>
+            </tr>
+            <tr>
+              <td id="cloudiness">1</td>
+            </tr>
+          </table>
+        </details>
       </div>
-      <div id="article2">
-        <h2 id="article2title"><a id="article2link">1</a></h2>
-        <img
-          id="article2img"
-          src="../lab3/svg/static/day.svg"
-          alt="Article Image"
-        />
-      </div>
-      <div id="article3">
-        <h2 id="article3title"><a id="article3link">1</a></h2>
-        <img
-          id="article3img"
-          src="../lab3/svg/static/day.svg"
-          alt="Article Image"
-        />
+      <div id="newsContainer" class="titles col">
+        <div id="article1">
+          <h2 id="article1title"><a id="article1link">1</a></h2>
+          <img
+            id="article1img"
+            src="../lab3/svg/static/day.svg"
+            alt="Article Image"
+          />
+        </div>
+        <div id="article2">
+          <h2 id="article2title"><a id="article2link">1</a></h2>
+          <img
+            id="article2img"
+            src="../lab3/svg/static/day.svg"
+            alt="Article Image"
+          />
+        </div>
+        <div id="article3">
+          <h2 id="article3title"><a id="article3link">1</a></h2>
+          <img
+            id="article3img"
+            src="../lab3/svg/static/day.svg"
+            alt="Article Image"
+          />
+        </div>
       </div>
     </div>
   </body>

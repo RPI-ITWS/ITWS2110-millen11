@@ -47,7 +47,7 @@ async function displayWeatherData() {
   //temperature related-data
 
   //Displaying weather image based on current conditions
-  let weatherID = data["weather"]["id"];
+  let weatherID = data["weather"][0]["id"];
   if (weatherID >= 200 && weatherID <= 232) {
     $("#weatherImage").attr("src", "../svg/static/thunder.svg");
     $("#backgroundWeather").css(
@@ -55,20 +55,20 @@ async function displayWeatherData() {
       "url('../img/thunder.jpeg')"
     );
   } else if (weatherID >= 300 && weatherID <= 321) {
-    $("#weatherImage").attr("src", "../svg/static/rainy-7.svg");
-    $("#backgroundWeather").css("background-image", "url('../img/rain.jpg')");
+    $("#weatherImage").attr("src", "./svg/static/rainy-7.svg");
+    $("#backgroundWeather").css("background-image", "url('./img/rain.jpg')");
   } else if (weatherID >= 500 && weatherID <= 531) {
-    $("#weatherImage").attr("src", "../svg/static/rainy-1.svg");
-    $("#backgroundWeather").css("background-image", "url('../img/rain.jpg')");
+    $("#weatherImage").attr("src", "./svg/static/rainy-1.svg");
+    $("#backgroundWeather").css("background-image", "url('./img/rain.jpg')");
   } else if (weatherID >= 600 && weatherID <= 622) {
-    $("#weatherImage").attr("src", "../svg/static/snowy-1.svg");
-    $("#backgroundWeather").css("background-image", "url('../img/snow.jpg')");
+    $("#weatherImage").attr("src", "./svg/static/snowy-1.svg");
+    $("#backgroundWeather").css("background-image", "url('./img/snow.jpg')");
   } else if (weatherID === 800) {
     $("#weatherImage").attr("src", "./svg/static/day.svg");
-    $("#backgroundWeather").css("background-image", "url('../img/clear.jpg')");
+    $("#backgroundWeather").css("background-image", "url('./img/clear.jpg')");
   } else if (weatherID >= 801 && weatherID <= 804) {
-    $("#weatherImage").attr("src", ".././svg/static/cloudy.svg");
-    $("#backgroundWeather").css("background-image", "url('../img/cloud.jpg')");
+    $("#weatherImage").attr("src", "./svg/static/cloudy.svg");
+    $("#backgroundWeather").css("background-image", "url('./img/cloud.jpg')");
   }
 
   $("#currentTemp").html(data["main"]["temp"] + "°F");

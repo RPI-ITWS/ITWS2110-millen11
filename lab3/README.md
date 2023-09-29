@@ -4,6 +4,9 @@ OpenWeatherMap API Key: b0bcf16f78f4e42826a910428b5a38cc, https://openweathermap
 News API: 8720ffe5f19547c7a15e6ceb0cfebe88,https://newsapi.org/
 jQuery: https://code.jquery.com/jquery-3.7.1.min.js
 
+Bootstrap:
+https://getbootstrap.com/docs/4.0/getting-started/introduction/
+
 Formatters:
 https://validator.w3.org/#validate_by_input
 https://jigsaw.w3.org/css-validator/validator
@@ -90,3 +93,5 @@ Catalog:
 
 11. "Feels like" data will not display everything on a single line
     a) Cannot come up with the fix
+
+12. Used Bootstrap to fix issues with aligning the weather and news columns

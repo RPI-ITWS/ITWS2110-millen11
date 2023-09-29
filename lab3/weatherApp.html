@@ -3,15 +3,61 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>millen11-Weather Application</title>
-    <link rel="icon" type="image/png" href="" />
+    <title>millen11: Weather Application</title>
+    <link rel="icon" type="image/png" href="./svg/static/weather.svg" />
+    <link rel="stylesheet" href="application.css" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="" />
+    <script src="./scripts/jquery-3.7.1.min.js"></script>
+    <script src="./scripts/application.js"></script>
   </head>
 
   <body>
-    <script src="jquery-3.71.min.js"></script>
-    <script src="application.js" async defer></script>
+    <div class="navBar">
+      <a class="spaceOutNavContent" href="../../index.html">Home</a>
+      <a class="spaceOutNavContent" href="../labs.html">Labs</a>
+    </div>
+
+    <!-- Genral container that will hold/display all of the weather data -->
+    <button onclick="functionName()">Use current location</button>
+    <div id="parentContainer">
+      <details>
+        <!-- Shows the current day and the next 7 days of weather -->
+        <summary>
+          <img id="weatherImage" alt="Weather Image" />
+
+          <div id="tempContainer">
+            <h2 id="currentTemp"></h2>
+            <h3 id="feels_like"></h3>
+            <h3 id="minTemp"></h3>
+            <h3 id="maxTemp"></h3>
+          </div>
+
+          <h3 id="city"></h3>
+          <h5 id="timeDataFetched"></h5>
+        </summary>
+        <table>
+          <tr>
+            <td id="humidity"></td>
+            <td id="sunriseTime"></td>
+          </tr>
+          <tr>
+            <td id="windSpeed"></td>
+            <td id="sunsetTime"></td>
+          </tr>
+          <tr>
+            <td id="cloudiness"></td>
+          </tr>
+        </table>
+      </details>
+    </div>
+    <!-- <div id="newsContainer">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus amet
+        quisquam tempore voluptas, error recusandae nihil nemo repudiandae,
+        ipsa, culpa tenetur laboriosam facilis modi nesciunt ipsam esse
+        exercitationem. Quisquam, minus.
+      </p>
+    </div> -->
   </body>
 </html>

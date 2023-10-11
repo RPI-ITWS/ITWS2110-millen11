@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Faculty | RPI</title>
+  </head>
+  <body>
+    <header>
+      <!-- Replaced navigation section with updated title -->
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="undergrad.html">Undergraduate</a></li>
+          <li><a href="grad.html">Graduate</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="faculty.html">Faculty</a></li>
+        </ul>
+      </nav>
+      <h1>Information Technology and Web Science</h1>
+    </header>
+
+    <div id="faculty">
+      <h2>Faculty Profiles</h2>
+
+      <div class="faculty-profile">
+        <h3>Brian Callahan</h3>
+        <img src="callahan.jpg" alt="Brian Callahan" />
+        <p>Lecturer And Graduate Program Director</p>
+        <p>Contact: <a href="mailto:brianc@rpi.edu">brianc@rpi.edu</a></p>
+      </div>
+
+      <div class="faculty-profile">
+        <h3>Kathy Fontaine</h3>
+        <img src="fontaine.jpg" alt="Kathy Fontaine" />
+        <p>Sr. Lecturer</p>
+        <p>Contact: <a href="mailto:kathyf@rpi.edu">kathyf@rpi.edu</a></p>
+      </div>
+
+      <div class="faculty-profile">
+        <h3>Thilanka Munasinghe</h3>
+        <img src="thilanka.jpg" alt="Thilanka Munasinghe" />
+        <p>Lecturer</p>
+        <p>Contact: <a href="mailto:thilankam@rpi.edu">thilankam@rpi.edu</a></p>
+      </div>
+
+      <div class="faculty-profile">
+        <h3>Richard Plotka</h3>
+        <img src="plotka.jpg" alt="Richard Plotka" />
+        <p>Director, ITWS</p>
+        <p>Contact: <a href="mailto:richardp@rpi.edu">richardp@rpi.edu</a></p>
+      </div>
+
+      <div class="faculty-profile">
+        <h3>Kevin Stewart</h3>
+        <img src="kevin.jpg" alt="Kevin Stewart" />
+        <p>Lecturer</p>
+        <p>Contact: <a href="mailto:kevins@rpi.edu">kevins@rpi.edu</a></p>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form">
+        <h2>Contact Us</h2>
+        <form action="process.php" method="post">
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for "email">Your Email:</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" required></textarea>
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2023 Information Technology and Web Science</p>
+    </footer>
+  </body>
+</html>

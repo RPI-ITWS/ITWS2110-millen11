@@ -12,6 +12,7 @@ body {
   background-color: #f0f0f0; /* Light gray background */
   color: #333; /* Dark gray text */
   font-family: Arial, sans-serif;
+  line-height: 1.6; /* Improved line height for better readability */
 }
 
 /* Header styles */
@@ -25,6 +26,7 @@ header {
 
 header h1 {
   font-size: 36px;
+  margin-bottom: 20px; /* Added spacing below the header */
 }
 
 /* Navigation menu styles */
@@ -42,6 +44,7 @@ nav ul li {
 nav ul li a {
   text-decoration: none;
   color: #fff; /* White text color for links */
+  font-weight: bold; /* Improved link visibility */
 }
 
 /* Main content section styles */
@@ -51,6 +54,7 @@ section {
   margin: 20px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+  overflow: hidden; /* Improved section overflow handling */
 }
 
 /* Footer styles */
@@ -65,11 +69,7 @@ footer {
 /* Links in the footer */
 footer a {
   color: #fff; /* White text color for links in the footer */
-}
-
-/* Add hover effect to links */
-a:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* Add an underline on hover */
 }
 
 /* Carousel styles */
@@ -78,6 +78,7 @@ a:hover {
   width: 100%;
   max-width: 600px; /* Adjust the maximum width as needed */
   margin: 0 auto;
+  margin-bottom: 20px; /* Improved spacing below the carousel */
 }
 
 .carousel {
@@ -93,6 +94,8 @@ a:hover {
   align-items: center;
   font-size: 24px;
   font-weight: bold;
+  margin-right: 10px; /* Improved spacing between carousel items */
+  background-color: #ccc; /* Add a default background color */
 }
 
 /* Define different background colors for carousel items */

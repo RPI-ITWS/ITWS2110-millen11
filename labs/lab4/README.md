@@ -1,3 +1,5 @@
+Link to VM: http://millen11rpi611287.eastus.cloudapp.azure.com/ITWS2110-millen11/labs/lab4/index.html
+
 ChatGPT Prompts:
 
 Original (Pre-lab4):

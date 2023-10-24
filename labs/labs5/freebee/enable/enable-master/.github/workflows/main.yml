@@ -1,0 +1,13 @@
+name: CI
+
+on:
+  - pull_request
+
+jobs:
+  check-abc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check if dictionary is in alphabetical order
+        run: hack/check-abc.sh

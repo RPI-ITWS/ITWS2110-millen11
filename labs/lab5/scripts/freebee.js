@@ -476,3 +476,12 @@ window.onload = function () {
         : 1),
     darkmode();
 };
+
+function updateCombImage() {
+  for (var i = 1; i <= 7; i++) {
+    $("#comb" + i).attr("data-src", "./images/comb-min.png");
+  }
+}
+$(document).ready(function () {
+  updateCombImage();
+});

@@ -4,6 +4,9 @@ Resources:
 2. https://dev.to/ekafyi/lazy-loading-images-with-vanilla-javascript-2fbj
 3. 1x1 pmg: https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png
 4. https://www.keycdn.com/support/defer-parsing-of-javascript
+5. https://jscompress.com/
+6. https://www.toptal.com/developers/cssminifier
+7. https://compresspng.com/
 
 Design Choices & Optimizations:
 

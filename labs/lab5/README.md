@@ -13,12 +13,14 @@ Design Choices & Optimizations:
 
 2. Minimize DNS Lookups
    a) Prefetch links and images \ May make navigation/viewing of certain content quicker for users
-
    - Image lazy loading to reduce resource usage
      b) Move script tag to bottom of body tag and add defer attribute
-
    * Did consider a manual defer parsing technique, however I believe it may overcomplicate a pre-built method
+3. Minfied CSS
 
-   Issues:
+   - Used minifier
+   - Removed "extra and inefficient" selectors, i.e., "\*" since our content is in body
 
-3. "Flattening CNAME record". I tried minimizing the CNAME records, but got stonewalled by CloudFlare due to permissions and subscription model.
+Issues:
+
+4. "Flattening CNAME record". I tried minimizing the CNAME records, but got stonewalled by CloudFlare due to permissions and subscription model.

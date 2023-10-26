@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
       e.forEach(function (t) {
         if (t.isIntersecting) {
           let e = t.target;
-          (e.src = e.dataset.src), e.classList.remove("lazy"), n.unobserve(e);
+          (e.src = e.dataset.src),
+            e.classList.remove("lazyLoad"),
+            n.unobserve(e);
         }
       });
     });

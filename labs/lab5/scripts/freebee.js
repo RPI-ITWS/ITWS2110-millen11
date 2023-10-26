@@ -1,793 +1,476 @@
-// https://dev.to/ekafyi/lazy-loading-images-with-vanilla-javascript-2fbj
-//Lazy loads comb images
-// Run after the HTML document has finished loading
+var all, daily_play, found;
 document.addEventListener("DOMContentLoaded", function () {
-  // Get our lazy-loaded images
-  var lazyImages = [].slice.call(document.querySelectorAll("img.lazyLoad"));
-
-  // Do this only if IntersectionObserver is supported
+  var e = [].slice.call(document.querySelectorAll("img.lazyLoad"));
   if ("IntersectionObserver" in window) {
-    // Create new observer object
-    let lazyImageObserver = new IntersectionObserver(function (
-      entries,
-      observer
-    ) {
-      // Loop through IntersectionObserverEntry objects
-      entries.forEach(function (entry) {
-        // Do these if the target intersects with the root
-        if (entry.isIntersecting) {
-          let lazyImage = entry.target;
-          lazyImage.src = lazyImage.dataset.src;
-          lazyImage.classList.remove("lazy");
-          lazyImageObserver.unobserve(lazyImage);
+    let n = new IntersectionObserver(function (e, t) {
+      e.forEach(function (t) {
+        if (t.isIntersecting) {
+          let e = t.target;
+          (e.src = e.dataset.src), e.classList.remove("lazy"), n.unobserve(e);
         }
       });
     });
-
-    // Loop through and observe each image
-    lazyImages.forEach(function (lazyImage) {
-      lazyImageObserver.observe(lazyImage);
+    e.forEach(function (e) {
+      n.observe(e);
     });
   }
 });
-
-var all;
-var daily_play;
-var found;
-var foundlist = [];
-var guess;
-var letters = [],
-  todayletters = [];
-var points;
-var rank1, rank2, rank3, rank4, rank5, rank6, rank7, rank8, rank9;
-var replaying;
-var total, todaytotal, yesterdaytotal;
-var win;
-var wordlist = [],
+var guess,
+  points,
+  rank1,
+  rank2,
+  rank3,
+  rank4,
+  rank5,
+  rank6,
+  rank7,
+  rank8,
+  rank9,
+  replaying,
+  total,
+  todaytotal,
+  yesterdaytotal,
+  win,
+  words,
+  todaywords,
+  yesterdaywords,
+  dark,
+  foundlist = [],
+  letters = [],
+  todayletters = [],
+  wordlist = [],
   todaywordlist = [],
   yesterdaywordlist = [];
-var words, todaywords, yesterdaywords;
-var dark;
-
 function darkmode() {
-  if (dark == 1) {
-    var x = document.querySelectorAll("*");
-    for (var i = 0; i < x.length; i++) {
-      if (x[i].className != "fg" && x[i].className != "bg") {
-        x[i].style.background = "#fbfcff";
-        x[i].style.color = "#243b4a";
-      }
-    }
-    dark = 0;
-    localStorage.setItem("useDarkMode", 1);
-  } else {
-    var x = document.querySelectorAll("*");
-    for (var i = 0; i < x.length; i++) {
-      if (x[i].className != "fg" && x[i].className != "bg") {
-        x[i].style.background = "#111111";
-        x[i].style.color = "#9e9e9e";
-      }
-    }
-    dark = 1;
-    localStorage.setItem("useDarkMode", 0);
-  }
+  for (var e = document.querySelectorAll("body"), t = 0; t < e.length; t++)
+    "fg" != e[t].className &&
+      "bg" != e[t].className &&
+      (1 == dark
+        ? ((e[t].style.background = "#fbfcff"),
+          (e[t].style.color = "#243b4a"),
+          (dark = 0),
+          localStorage.setItem("useDarkMode", 1))
+        : ((e[t].style.background = "#111111"),
+          (e[t].style.color = "#9e9e9e"),
+          (dark = 1),
+          localStorage.setItem("useDarkMode", 0)));
 }
-
-function type(letter, combno) {
-  document.getElementById("no-message").style.display = "inline";
-  document.getElementById("pangram").style.display = "none";
-  document.getElementById("already-found").style.display = "none";
-  document.getElementById("center-letter").style.display = "none";
-  document.getElementById("too-short").style.display = "none";
-  document.getElementById("not-in-list").style.display = "none";
-  document.getElementById("comb" + combno).style.height = "80px";
-  document.getElementById("comb" + combno).style.width = "80px";
-  document.getElementById("comb" + combno).style.left =
-    parseInt(document.getElementById("comb" + combno).style.left) + 10 + "px";
-  document.getElementById("comb" + combno).style.top =
-    parseInt(document.getElementById("comb" + combno).style.top) + 10 + "px";
-  document.getElementById("guess").value =
-    document.getElementById("guess").value + letter;
+function type(e, t) {
+  (document.getElementById("no-message").style.display = "inline"),
+    (document.getElementById("pangram").style.display = "none"),
+    (document.getElementById("already-found").style.display = "none"),
+    (document.getElementById("center-letter").style.display = "none"),
+    (document.getElementById("too-short").style.display = "none"),
+    (document.getElementById("not-in-list").style.display = "none"),
+    (document.getElementById("comb" + t).style.height = "80px"),
+    (document.getElementById("comb" + t).style.width = "80px"),
+    (document.getElementById("comb" + t).style.left =
+      parseInt(document.getElementById("comb" + t).style.left) + 10 + "px"),
+    (document.getElementById("comb" + t).style.top =
+      parseInt(document.getElementById("comb" + t).style.top) + 10 + "px"),
+    (document.getElementById("guess").value =
+      document.getElementById("guess").value + e);
 }
-
 function untype() {
-  document.getElementById("comb1").style.height = "100px";
-  document.getElementById("comb1").style.width = "100px";
-  document.getElementById("comb1").style.left = "1px";
-  document.getElementById("comb1").style.top = "51px";
-  document.getElementById("comb2").style.height = "100px";
-  document.getElementById("comb2").style.width = "100px";
-  document.getElementById("comb2").style.left = "80px";
-  document.getElementById("comb2").style.top = "1px";
-  document.getElementById("comb3").style.height = "100px";
-  document.getElementById("comb3").style.width = "100px";
-  document.getElementById("comb3").style.left = "159px";
-  document.getElementById("comb3").style.top = "51px";
-  document.getElementById("comb4").style.height = "100px";
-  document.getElementById("comb4").style.width = "100px";
-  document.getElementById("comb4").style.left = "1px";
-  document.getElementById("comb4").style.top = "149px";
-  document.getElementById("comb5").style.height = "100px";
-  document.getElementById("comb5").style.width = "100px";
-  document.getElementById("comb5").style.left = "80px";
-  document.getElementById("comb5").style.top = "199px";
-  document.getElementById("comb6").style.height = "100px";
-  document.getElementById("comb6").style.width = "100px";
-  document.getElementById("comb6").style.left = "159px";
-  document.getElementById("comb6").style.top = "149px";
-  document.getElementById("comb7").style.height = "100px";
-  document.getElementById("comb7").style.width = "100px";
-  document.getElementById("comb7").style.left = "80px";
-  document.getElementById("comb7").style.top = "100px";
+  (document.getElementById("comb1").style.height = "100px"),
+    (document.getElementById("comb1").style.width = "100px"),
+    (document.getElementById("comb1").style.left = "1px"),
+    (document.getElementById("comb1").style.top = "51px"),
+    (document.getElementById("comb2").style.height = "100px"),
+    (document.getElementById("comb2").style.width = "100px"),
+    (document.getElementById("comb2").style.left = "80px"),
+    (document.getElementById("comb2").style.top = "1px"),
+    (document.getElementById("comb3").style.height = "100px"),
+    (document.getElementById("comb3").style.width = "100px"),
+    (document.getElementById("comb3").style.left = "159px"),
+    (document.getElementById("comb3").style.top = "51px"),
+    (document.getElementById("comb4").style.height = "100px"),
+    (document.getElementById("comb4").style.width = "100px"),
+    (document.getElementById("comb4").style.left = "1px"),
+    (document.getElementById("comb4").style.top = "149px"),
+    (document.getElementById("comb5").style.height = "100px"),
+    (document.getElementById("comb5").style.width = "100px"),
+    (document.getElementById("comb5").style.left = "80px"),
+    (document.getElementById("comb5").style.top = "199px"),
+    (document.getElementById("comb6").style.height = "100px"),
+    (document.getElementById("comb6").style.width = "100px"),
+    (document.getElementById("comb6").style.left = "159px"),
+    (document.getElementById("comb6").style.top = "149px"),
+    (document.getElementById("comb7").style.height = "100px"),
+    (document.getElementById("comb7").style.width = "100px"),
+    (document.getElementById("comb7").style.left = "80px"),
+    (document.getElementById("comb7").style.top = "100px");
 }
-
+function doPlay(e, t, n, o, l) {
+  (document.getElementById("play" + e).src = l[e - 1] + ".png"),
+    (document.getElementById("play" + e).alt = l[e - 1]),
+    (document.getElementById("play" + e).style.left = t + "px"),
+    (document.getElementById("play" + e).style.top = n + "px"),
+    (document.getElementById("play" + e).ontouchstart = function () {
+      type(l[e - (o = 1)], e);
+    }),
+    (document.getElementById("play" + e).onmousedown = function () {
+      1 != o && type(7 == e ? l[e - 1][1] : l[e - 1], e);
+    }),
+    (document.getElementById("play" + e).style.display = "block"),
+    (document.getElementById("play" + e).onmouseup = function () {
+      untype();
+    }),
+    (document.getElementById("play" + e).ondragend = function () {
+      untype();
+    }),
+    (document.getElementById("play" + e).ontouchend = function () {
+      untype();
+    }),
+    (document.getElementById("play" + e).ontouchcancel = function () {
+      untype();
+    });
+}
 function display() {
-  var didtouch = 0;
-
-  document.getElementById("play1").src = letters[0] + ".png";
-  document.getElementById("play1").alt = letters[0];
-  document.getElementById("play1").style.left = "21px";
-  document.getElementById("play1").style.top = "51px";
-  document.getElementById("play1").ontouchstart = function () {
-    didtouch = 1;
-    type(letters[0], 1);
-  };
-  document.getElementById("play1").onmousedown = function () {
-    if (didtouch != 1) {
-      type(letters[0], 1);
-    }
-  };
-  document.getElementById("play1").style.display = "block";
-  document.getElementById("play1").onmouseup = function () {
-    untype();
-  };
-  document.getElementById("play1").ondragend = function () {
-    untype();
-  };
-  document.getElementById("play1").ontouchend = function () {
-    untype();
-  };
-  document.getElementById("play1").ontouchcancel = function () {
-    untype();
-  };
-
-  document.getElementById("play2").src = letters[1] + ".png";
-  document.getElementById("play2").alt = letters[1];
-  document.getElementById("play2").style.left = "100px";
-  document.getElementById("play2").style.top = "1px";
-  document.getElementById("play2").ontouchstart = function () {
-    didtouch = 1;
-    type(letters[1], 2);
-  };
-  document.getElementById("play2").onmousedown = function () {
-    if (didtouch != 1) {
-      type(letters[1], 2);
-    }
-  };
-  document.getElementById("play2").style.display = "block";
-  document.getElementById("play2").onmouseup = function () {
-    untype();
-  };
-  document.getElementById("play2").ondragend = function () {
-    untype();
-  };
-  document.getElementById("play2").ontouchend = function () {
-    untype();
-  };
-  document.getElementById("play2").ontouchcancel = function () {
-    untype();
-  };
-
-  document.getElementById("play3").src = letters[2] + ".png";
-  document.getElementById("play3").alt = letters[2];
-  document.getElementById("play3").style.left = "179px";
-  document.getElementById("play3").style.top = "51px";
-  document.getElementById("play3").ontouchstart = function () {
-    didtouch = 1;
-    type(letters[2], 3);
-  };
-  document.getElementById("play3").onmousedown = function () {
-    if (didtouch != 1) {
-      type(letters[2], 3);
-    }
-  };
-  document.getElementById("play3").style.display = "block";
-  document.getElementById("play3").onmouseup = function () {
-    untype();
-  };
-  document.getElementById("play3").ondragend = function () {
-    untype();
-  };
-  document.getElementById("play3").ontouchend = function () {
-    untype();
-  };
-  document.getElementById("play3").ontouchcancel = function () {
-    untype();
-  };
-
-  document.getElementById("play4").src = letters[3] + ".png";
-  document.getElementById("play4").alt = letters[3];
-  document.getElementById("play4").style.left = "21px";
-  document.getElementById("play4").style.top = "149px";
-  document.getElementById("play4").ontouchstart = function () {
-    didtouch = 1;
-    type(letters[3], 4);
-  };
-  document.getElementById("play4").onmousedown = function () {
-    if (didtouch != 1) {
-      type(letters[3], 4);
-    }
-  };
-  document.getElementById("play4").style.display = "block";
-  document.getElementById("play4").onmouseup = function () {
-    untype();
-  };
-  document.getElementById("play4").ondragend = function () {
-    untype();
-  };
-  document.getElementById("play4").ontouchend = function () {
-    untype();
-  };
-  document.getElementById("play4").ontouchcancel = function () {
-    untype();
-  };
-
-  document.getElementById("play5").src = letters[4] + ".png";
-  document.getElementById("play5").alt = letters[4];
-  document.getElementById("play5").style.left = "100px";
-  document.getElementById("play5").style.top = "199px";
-  document.getElementById("play5").ontouchstart = function () {
-    didtouch = 1;
-    type(letters[4], 5);
-  };
-  document.getElementById("play5").onmousedown = function () {
-    if (didtouch != 1) {
-      type(letters[4], 5);
-    }
-  };
-  document.getElementById("play5").style.display = "block";
-  document.getElementById("play5").onmouseup = function () {
-    untype();
-  };
-  document.getElementById("play5").ondragend = function () {
-    untype();
-  };
-  document.getElementById("play5").ontouchend = function () {
-    untype();
-  };
-  document.getElementById("play5").ontouchcancel = function () {
-    untype();
-  };
-
-  document.getElementById("play6").src = letters[5] + ".png";
-  document.getElementById("play6").alt = letters[5];
-  document.getElementById("play6").style.left = "179px";
-  document.getElementById("play6").style.top = "149px";
-  document.getElementById("play6").ontouchstart = function () {
-    didtouch = 1;
-    type(letters[5], 6);
-  };
-  document.getElementById("play6").onmousedown = function () {
-    if (didtouch != 1) {
-      type(letters[5], 6);
-    }
-  };
-  document.getElementById("play6").style.display = "block";
-  document.getElementById("play6").onmouseup = function () {
-    untype();
-  };
-  document.getElementById("play6").ondragend = function () {
-    untype();
-  };
-  document.getElementById("play6").ontouchend = function () {
-    untype();
-  };
-  document.getElementById("play6").ontouchcancel = function () {
-    untype();
-  };
-
-  document.getElementById("play7").src = letters[6] + ".png";
-  document.getElementById("play7").alt = "center: " + letters[6][1];
-  document.getElementById("play7").style.left = "100px";
-  document.getElementById("play7").style.top = "100px";
-  document.getElementById("play7").ontouchstart = function () {
-    didtouch = 1;
-    type(letters[6][1], 7);
-  };
-  document.getElementById("play7").onmousedown = function () {
-    if (didtouch != 1) {
-      type(letters[6][1], 7);
-    }
-  };
-  document.getElementById("play7").style.display = "block";
-  document.getElementById("play7").onmouseup = function () {
-    untype();
-  };
-  document.getElementById("play7").ondragend = function () {
-    untype();
-  };
-  document.getElementById("play7").ontouchend = function () {
-    untype();
-  };
-  document.getElementById("play7").ontouchcancel = function () {
-    untype();
-  };
+  doPlay(1, 21, 51, 0, letters),
+    doPlay(2, 100, 1, 0, letters),
+    doPlay(3, 179, 51, 0, letters),
+    doPlay(4, 21, 149, 0, letters),
+    doPlay(5, 100, 199, 0, letters),
+    doPlay(6, 179, 149, 0, letters),
+    doPlay(7, 100, 100, 0, letters);
 }
-
 function update_rank() {
-  var rank;
-
-  if (points >= rank9) {
-    if (win == 0) {
-      alert("You earned the rank of Queen Bee!\n\nCan you find all the words?");
-      win = 1;
-    }
-    rank = "Queen Bee!";
-  } else if (points >= rank8) {
-    rank = "Outstanding";
-  } else if (points >= rank7) {
-    rank = "Marvellous";
-  } else if (points >= rank6) {
-    rank = "Superb";
-  } else if (points >= rank5) {
-    rank = "Excellent";
-  } else if (points >= rank4) {
-    rank = "Skilled";
-  } else if (points >= rank3) {
-    rank = "Fine";
-  } else if (points >= rank2) {
-    rank = "Novice";
-  } else {
-    rank = "Newbie";
-  }
-
-  document.getElementById("rank-update").innerHTML = rank;
+  var e =
+    rank9 <= points
+      ? (0 == win &&
+          (alert(
+            "You earned the rank of Queen Bee!\n\nCan you find all the words?"
+          ),
+          (win = 1)),
+        "Queen Bee!")
+      : rank8 <= points
+      ? "Outstanding"
+      : rank7 <= points
+      ? "Marvellous"
+      : rank6 <= points
+      ? "Superb"
+      : rank5 <= points
+      ? "Excellent"
+      : rank4 <= points
+      ? "Skilled"
+      : rank3 <= points
+      ? "Fine"
+      : rank2 <= points
+      ? "Novice"
+      : "Newbie";
+  document.getElementById("rank-update").innerHTML = e;
 }
-
 function set_rank() {
-  rank1 = 0;
-  rank2 = Math.floor(total * 0.02);
-  rank3 = Math.floor(total * 0.05);
-  rank4 = Math.floor(total * 0.08);
-  rank5 = Math.floor(total * 0.15);
-  rank6 = Math.floor(total * 0.25);
-  rank7 = Math.floor(total * 0.4);
-  rank8 = Math.floor(total * 0.5);
-  rank9 = Math.floor(total * 0.7);
+  (rank1 = 0),
+    (rank2 = Math.floor(0.02 * total)),
+    (rank3 = Math.floor(0.05 * total)),
+    (rank4 = Math.floor(0.08 * total)),
+    (rank5 = Math.floor(0.15 * total)),
+    (rank6 = Math.floor(0.25 * total)),
+    (rank7 = Math.floor(0.4 * total)),
+    (rank8 = Math.floor(0.5 * total)),
+    (rank9 = Math.floor(0.7 * total));
 }
-
 function save_word() {
   localStorage.setItem("foundwords", JSON.stringify(foundlist));
 }
-
 function add_points() {
-  var one = 0,
-    two = 0,
-    three = 0,
-    four = 0,
-    five = 0,
-    six = 0;
-  var i = 0,
-    j = 0;
-
-  if (daily_play === 1) {
-    save_word();
+  var e = 0,
+    t = 0,
+    n = 0,
+    o = 0,
+    l = 0,
+    d = 0,
+    s = 0,
+    y = 0;
+  if ((1 === daily_play && save_word(), (s = guess.length) < 7))
+    return 4 == s && (s = 1), void (points += s);
+  for (s = 0; s < guess.length; ) {
+    for (y = 0; y < 7; y++)
+      guess[s] == letters[y] &&
+        (0 == y && (e = 1),
+        1 == y && (t = 1),
+        2 == y && (n = 1),
+        3 == y && (o = 1),
+        4 == y && (l = 1),
+        5 == y && (d = 1));
+    s += 1;
   }
-
-  i = guess.length;
-  if (i < 7) {
-    if (i == 4) {
-      i = 1;
-    }
-    points = points + i;
-
-    return;
-  }
-
-  i = 0;
-  while (i < guess.length) {
-    for (j = 0; j < 7; j++) {
-      if (guess[i] == letters[j]) {
-        if (j == 0) {
-          one = 1;
-        }
-        if (j == 1) {
-          two = 1;
-        }
-        if (j == 2) {
-          three = 1;
-        }
-        if (j == 3) {
-          four = 1;
-        }
-        if (j == 4) {
-          five = 1;
-        }
-        if (j == 5) {
-          six = 1;
-        }
-      }
-    }
-    i = i + 1;
-  }
-
-  if (
-    one == 1 &&
-    two == 1 &&
-    three == 1 &&
-    four == 1 &&
-    five == 1 &&
-    six == 1
-  ) {
-    points = points + guess.length + 7;
-    document.getElementById("no-message").style.display = "none";
-    document.getElementById("pangram").style.display = "inline";
-
-    return;
-  }
-
-  points = points + guess.length;
+  if (1 == e && 1 == t && 1 == n && 1 == o && 1 == l && 1 == d)
+    return (
+      (points = points + guess.length + 7),
+      (document.getElementById("no-message").style.display = "none"),
+      void (document.getElementById("pangram").style.display = "inline")
+    );
+  points += guess.length;
 }
-
 function found_word() {
-  var i;
-
-  for (i = 0; i < found; i++) {
-    if (guess == foundlist[i]) {
-      document.getElementById("no-message").style.display = "none";
-      document.getElementById("already-found").style.display = "inline";
-      return 1;
-    }
-  }
-
-  foundlist.push(guess);
-
-  found = found + 1;
-
-  add_points();
-
-  document.getElementById("points-update").innerHTML = points;
-  document.getElementById("answers-update").innerHTML =
-    foundlist.join("<br />");
-
-  update_rank();
-
-  if (found == words) {
-    alert("Congratulations! You found all the words!");
-    all = 1;
-  }
-
-  return 0;
+  for (var e = 0; e < found; e++)
+    if (guess == foundlist[e])
+      return (
+        (document.getElementById("no-message").style.display = "none"),
+        (document.getElementById("already-found").style.display = "inline"),
+        1
+      );
+  return (
+    foundlist.push(guess),
+    (found += 1),
+    add_points(),
+    (document.getElementById("points-update").innerHTML = points),
+    (document.getElementById("answers-update").innerHTML =
+      foundlist.join("<br />")),
+    update_rank(),
+    found == words &&
+      (alert("Congratulations! You found all the words!"), (all = 1)),
+    0
+  );
 }
-
+function updateElements() {
+  (document.getElementById("no-message").style.display = "inline"),
+    (document.getElementById("pangram").style.display = "none"),
+    (document.getElementById("already-found").style.display = "none"),
+    (document.getElementById("center-letter").style.display = "none"),
+    (document.getElementById("too-short").style.display = "none"),
+    (document.getElementById("not-in-list").style.display = "none");
+}
 function check() {
-  var center = 0,
-    i;
-
-  document.getElementById("no-message").style.display = "inline";
-  document.getElementById("pangram").style.display = "none";
-  document.getElementById("already-found").style.display = "none";
-  document.getElementById("center-letter").style.display = "none";
-  document.getElementById("too-short").style.display = "none";
-  document.getElementById("not-in-list").style.display = "none";
-
-  if (replaying === 0) {
-    guess = document.getElementById("guess").value.toLowerCase();
-    document.getElementById("player-guess").reset();
-  } else {
-    guess = guess.toLowerCase();
-  }
-
-  for (i = 0; i < guess.length; i++) {
-    if ("7" + guess[i] == letters[6]) {
-      center = 1;
-    }
-  }
-
-  if (guess.length < 4) {
-    document.getElementById("no-message").style.display = "none";
-    document.getElementById("too-short").style.display = "inline";
-    return 1;
-  }
-
-  if (center == 0) {
-    document.getElementById("no-message").style.display = "none";
-    document.getElementById("center-letter").style.display = "inline";
-    return 1;
-  }
-
-  for (i = 0; i < words; i++) {
-    if (guess == wordlist[i]) {
-      i = found_word();
-      return i;
-    }
-  }
-  document.getElementById("no-message").style.display = "none";
-  document.getElementById("not-in-list").style.display = "inline";
-
-  return 1;
+  var e,
+    t = 0;
+  for (
+    updateElements(),
+      0 === replaying
+        ? ((guess = document.getElementById("guess").value.toLowerCase()),
+          document.getElementById("player-guess").reset())
+        : (guess = guess.toLowerCase()),
+      e = 0;
+    e < guess.length;
+    e++
+  )
+    "7" + guess[e] == letters[6] && (t = 1);
+  if (guess.length < 4)
+    return (
+      (document.getElementById("no-message").style.display = "none"),
+      (document.getElementById("too-short").style.display = "inline"),
+      1
+    );
+  if (0 == t)
+    return (
+      (document.getElementById("no-message").style.display = "none"),
+      (document.getElementById("center-letter").style.display = "inline"),
+      1
+    );
+  for (e = 0; e < words; e++)
+    if (guess == wordlist[e]) return (e = found_word());
+  return (
+    (document.getElementById("no-message").style.display = "none"),
+    (document.getElementById("not-in-list").style.display = "inline"),
+    1
+  );
 }
-
 function replay_words() {
-  var i, replay;
-
-  replaying = 1;
-
-  replay = JSON.parse(localStorage.getItem("foundwords"));
-
-  localStorage.removeItem("foundwords");
-
-  for (i = 0; i < replay.length; i++) {
-    guess = replay[i];
-
-    if (check() == 1) {
-      localStorage.removeItem("foundwords");
-
-      for (i = 0; i < found; i++) {
+  var e, t;
+  for (
+    replaying = 1,
+      t = JSON.parse(localStorage.getItem("foundwords")),
+      localStorage.removeItem("foundwords"),
+      e = 0;
+    e < t.length;
+    e++
+  )
+    if (((guess = t[e]), 1 == check())) {
+      for (localStorage.removeItem("foundwords"), e = 0; e < found; e++)
         foundlist.pop();
-      }
-
-      all = 0;
-      found = 0;
-      points = 0;
-      rank = "Newbie";
-      win = 0;
-
-      document.getElementById("no-message").style.display = "inline";
-      document.getElementById("pangram").style.display = "none";
-      document.getElementById("already-found").style.display = "none";
-      document.getElementById("center-letter").style.display = "none";
-      document.getElementById("too-short").style.display = "none";
-      document.getElementById("not-in-list").style.display = "none";
-
-      replaying = 0;
-
-      return;
+      return (
+        (rank = "Newbie"),
+        (win = points = found = all = 0),
+        updateElements(),
+        void (replaying = 0)
+      );
     }
-  }
-
-  document.getElementById("no-message").style.display = "inline";
-  document.getElementById("pangram").style.display = "none";
-  document.getElementById("already-found").style.display = "none";
-  document.getElementById("center-letter").style.display = "none";
-  document.getElementById("too-short").style.display = "none";
-  document.getElementById("not-in-list").style.display = "none";
-
-  replaying = 0;
+  updateElements(), (replaying = 0);
 }
-
 function daily() {
-  var i;
-
-  daily_play = 1;
-
-  for (i = 0; i < found; i++) {
-    foundlist.pop();
-  }
-
-  all = 0;
-  found = 0;
-  points = 0;
-  rank = "Newbie";
-  replaying = 0;
-  win = 0;
-
-  document.getElementById("points-update").innerHTML = points;
-  document.getElementById("answers-update").innerHTML =
-    foundlist.join("<br />");
-  document.getElementById("rank-update").innerHTML = rank;
-  document.getElementById("yesterday-or-random").innerHTML =
-    "Yesterday's answers";
-  document.getElementById("random-answers").style.display = "none";
-  document.getElementById("restart-daily-button").style.visibility = "hidden";
-  document.getElementById("update-random").innerHTML = "";
-  document.getElementById("no-message").style.display = "inline";
-  document.getElementById("pangram").style.display = "none";
-  document.getElementById("already-found").style.display = "none";
-  document.getElementById("center-letter").style.display = "none";
-  document.getElementById("too-short").style.display = "none";
-  document.getElementById("not-in-list").style.display = "none";
-  document.getElementById("play1").style.display = "none";
-  document.getElementById("play2").style.display = "none";
-  document.getElementById("play3").style.display = "none";
-  document.getElementById("play4").style.display = "none";
-  document.getElementById("play5").style.display = "none";
-  document.getElementById("play6").style.display = "none";
-  document.getElementById("play7").style.display = "none";
-
-  letters[0] = todayletters[0];
-  letters[1] = todayletters[1];
-  letters[2] = todayletters[2];
-  letters[3] = todayletters[3];
-  letters[4] = todayletters[4];
-  letters[5] = todayletters[5];
-  letters[6] = todayletters[6];
-  words = todaywords;
-  total = todaytotal;
-  wordlist = todaywordlist;
-  set_rank();
-  if (localStorage.hasOwnProperty("foundwords") === true) {
-    replay_words();
-  }
-  document.getElementById("update-random").innerHTML =
-    yesterdaywordlist.join("<br />") +
-    "<br />" +
-    "<br />Total words:  " +
-    yesterdaywords +
-    "<br />Total points: " +
-    yesterdaytotal +
-    "<br />Points for Queen Bee: " +
-    Math.floor(yesterdaytotal * 0.7);
-  display();
+  var e;
+  for (daily_play = 1, e = 0; e < found; e++) foundlist.pop();
+  (rank = "Newbie"),
+    (win = replaying = points = found = all = 0),
+    (document.getElementById("points-update").innerHTML = points),
+    (document.getElementById("answers-update").innerHTML =
+      foundlist.join("<br />")),
+    (document.getElementById("rank-update").innerHTML = rank),
+    (document.getElementById("yesterday-or-random").innerHTML =
+      "Yesterday's answers"),
+    (document.getElementById("random-answers").style.display = "none"),
+    (document.getElementById("restart-daily-button").style.visibility =
+      "hidden"),
+    (document.getElementById("update-random").innerHTML = ""),
+    updateElements(),
+    (document.getElementById("play1").style.display = "none"),
+    (document.getElementById("play2").style.display = "none"),
+    (document.getElementById("play3").style.display = "none"),
+    (document.getElementById("play4").style.display = "none"),
+    (document.getElementById("play5").style.display = "none"),
+    (document.getElementById("play6").style.display = "none"),
+    (document.getElementById("play7").style.display = "none"),
+    (letters[0] = todayletters[0]),
+    (letters[1] = todayletters[1]),
+    (letters[2] = todayletters[2]),
+    (letters[3] = todayletters[3]),
+    (letters[4] = todayletters[4]),
+    (letters[5] = todayletters[5]),
+    (letters[6] = todayletters[6]),
+    (words = todaywords),
+    (total = todaytotal),
+    (wordlist = todaywordlist),
+    set_rank(),
+    !0 === localStorage.hasOwnProperty("foundwords") && replay_words(),
+    (document.getElementById("update-random").innerHTML =
+      yesterdaywordlist.join("<br />") +
+      "<br /><br />Total words:  " +
+      yesterdaywords +
+      "<br />Total points: " +
+      yesterdaytotal +
+      "<br />Points for Queen Bee: " +
+      Math.floor(0.7 * yesterdaytotal)),
+    display();
 }
-
 function get_yesterday() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var gameObj = JSON.parse(this.responseText);
-      yesterdaywords = gameObj.words;
-      yesterdaytotal = gameObj.total;
-      yesterdaywordlist = gameObj.wordlist;
-    }
-  };
-
-  xhttp.open("GET", "yesterday", true);
-  xhttp.send();
+  var e = new XMLHttpRequest();
+  (e.onreadystatechange = function () {
+    var e;
+    4 == this.readyState &&
+      200 == this.status &&
+      ((e = JSON.parse(this.responseText)),
+      (yesterdaywords = e.words),
+      (yesterdaytotal = e.total),
+      (yesterdaywordlist = e.wordlist));
+  }),
+    e.open("GET", "yesterday", !0),
+    e.send();
 }
-
 function get_today() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var gameObj = JSON.parse(this.responseText);
-      todayletters[0] = gameObj.letters[0];
-      todayletters[1] = gameObj.letters[1];
-      todayletters[2] = gameObj.letters[2];
-      todayletters[3] = gameObj.letters[3];
-      todayletters[4] = gameObj.letters[4];
-      todayletters[5] = gameObj.letters[5];
-      todayletters[6] = "7" + gameObj.center;
-      todaywords = gameObj.words;
-      todaytotal = gameObj.total;
-      todaywordlist = gameObj.wordlist;
-      daily();
-    }
-  };
-
-  xhttp.open("GET", "today", true);
-  xhttp.send();
+  var e = new XMLHttpRequest();
+  (e.onreadystatechange = function () {
+    var e;
+    4 == this.readyState &&
+      200 == this.status &&
+      ((e = JSON.parse(this.responseText)),
+      (todayletters[0] = e.letters[0]),
+      (todayletters[1] = e.letters[1]),
+      (todayletters[2] = e.letters[2]),
+      (todayletters[3] = e.letters[3]),
+      (todayletters[4] = e.letters[4]),
+      (todayletters[5] = e.letters[5]),
+      (todayletters[6] = "7" + e.center),
+      (todaywords = e.words),
+      (todaytotal = e.total),
+      (todaywordlist = e.wordlist),
+      daily());
+  }),
+    e.open("GET", "today", !0),
+    e.send();
 }
-
-window.onload = function () {
-  document.getElementById("comb1").style.height = "100px";
-  document.getElementById("comb1").style.width = "100px";
-  document.getElementById("comb1").style.left = "1px";
-  document.getElementById("comb1").style.top = "51px";
-  document.getElementById("comb2").style.height = "100px";
-  document.getElementById("comb2").style.width = "100px";
-  document.getElementById("comb2").style.left = "80px";
-  document.getElementById("comb2").style.top = "1px";
-  document.getElementById("comb3").style.height = "100px";
-  document.getElementById("comb3").style.width = "100px";
-  document.getElementById("comb3").style.left = "159px";
-  document.getElementById("comb3").style.top = "51px";
-  document.getElementById("comb4").style.height = "100px";
-  document.getElementById("comb4").style.width = "100px";
-  document.getElementById("comb4").style.left = "1px";
-  document.getElementById("comb4").style.top = "149px";
-  document.getElementById("comb5").style.height = "100px";
-  document.getElementById("comb5").style.width = "100px";
-  document.getElementById("comb5").style.left = "80px";
-  document.getElementById("comb5").style.top = "199px";
-  document.getElementById("comb6").style.height = "100px";
-  document.getElementById("comb6").style.width = "100px";
-  document.getElementById("comb6").style.left = "159px";
-  document.getElementById("comb6").style.top = "149px";
-  document.getElementById("comb7").style.height = "100px";
-  document.getElementById("comb7").style.width = "100px";
-  document.getElementById("comb7").style.left = "80px";
-  document.getElementById("comb7").style.top = "100px";
-  get_yesterday();
-  get_today();
-  if (localStorage.hasOwnProperty("useDarkMode") === true) {
-    dark = Number(localStorage.getItem("useDarkMode"));
-  } else {
-    dark = 1;
-  }
-  darkmode();
-};
-
 function shuffle() {
-  var i, j, t;
-
-  for (i = 5; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    t = letters[j];
-    letters[j] = letters[i];
-    letters[i] = t;
-  }
-
+  for (var e, t, n = 5; 0 < n; n--)
+    (e = Math.floor(Math.random() * (n + 1))),
+      (t = letters[e]),
+      (letters[e] = letters[n]),
+      (letters[n] = t);
   display();
 }
-
 function random() {
-  var xhttp = new XMLHttpRequest();
-  var i;
-
-  daily_play = 0;
-
-  for (i = 0; i < found; i++) {
+  for (var e = new XMLHttpRequest(), t = (daily_play = 0); t < found; t++)
     foundlist.pop();
-  }
-
-  all = 0;
-  found = 0;
-  points = 0;
-  rank = "Newbie";
-  win = 0;
-
-  document.getElementById("points-update").innerHTML = points;
-  document.getElementById("answers-update").innerHTML =
-    foundlist.join("<br />");
-  document.getElementById("rank-update").innerHTML = rank;
-  document.getElementById("yesterday-or-random").innerHTML = "Answers";
-  document.getElementById("update-random").innerHTML = "";
-  document.getElementById("no-message").style.display = "inline";
-  document.getElementById("pangram").style.display = "none";
-  document.getElementById("already-found").style.display = "none";
-  document.getElementById("center-letter").style.display = "none";
-  document.getElementById("too-short").style.display = "none";
-  document.getElementById("not-in-list").style.display = "none";
-  document.getElementById("play1").style.display = "none";
-  document.getElementById("play2").style.display = "none";
-  document.getElementById("play3").style.display = "none";
-  document.getElementById("play4").style.display = "none";
-  document.getElementById("play5").style.display = "none";
-  document.getElementById("play6").style.display = "none";
-  document.getElementById("play7").style.display = "none";
-
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var gameObj = JSON.parse(this.responseText);
-      letters[0] = gameObj.letters[0];
-      letters[1] = gameObj.letters[1];
-      letters[2] = gameObj.letters[2];
-      letters[3] = gameObj.letters[3];
-      letters[4] = gameObj.letters[4];
-      letters[5] = gameObj.letters[5];
-      letters[6] = "7" + gameObj.center;
-      words = gameObj.words;
-      total = gameObj.total;
-      wordlist = gameObj.wordlist;
-      set_rank();
-      display();
-      document.getElementById("random-answers").style.display = "block";
-      document.getElementById("restart-daily-button").style.visibility =
-        "visible";
-    }
-  };
-
-  xhttp.open("GET", "../../cgi-bin/random", true);
-  xhttp.send();
+  (rank = "Newbie"),
+    (win = points = found = all = 0),
+    (document.getElementById("points-update").innerHTML = points),
+    (document.getElementById("answers-update").innerHTML =
+      foundlist.join("<br />")),
+    (document.getElementById("rank-update").innerHTML = rank),
+    (document.getElementById("yesterday-or-random").innerHTML = "Answers"),
+    (document.getElementById("update-random").innerHTML = ""),
+    updateElements(),
+    (document.getElementById("play1").style.display = "none"),
+    (document.getElementById("play2").style.display = "none"),
+    (document.getElementById("play3").style.display = "none"),
+    (document.getElementById("play4").style.display = "none"),
+    (document.getElementById("play5").style.display = "none"),
+    (document.getElementById("play6").style.display = "none"),
+    (document.getElementById("play7").style.display = "none"),
+    (e.onreadystatechange = function () {
+      var e;
+      4 == this.readyState &&
+        200 == this.status &&
+        ((e = JSON.parse(this.responseText)),
+        (letters[0] = e.letters[0]),
+        (letters[1] = e.letters[1]),
+        (letters[2] = e.letters[2]),
+        (letters[3] = e.letters[3]),
+        (letters[4] = e.letters[4]),
+        (letters[5] = e.letters[5]),
+        (letters[6] = "7" + e.center),
+        (words = e.words),
+        (total = e.total),
+        (wordlist = e.wordlist),
+        set_rank(),
+        display(),
+        (document.getElementById("random-answers").style.display = "block"),
+        (document.getElementById("restart-daily-button").style.visibility =
+          "visible"));
+    }),
+    e.open("GET", "../../cgi-bin/random", !0),
+    e.send();
 }
-
 function show_random() {
   document.getElementById("update-random").innerHTML =
     wordlist.join("<br />") +
-    "<br />" +
-    "<br />Total words:  " +
+    "<br /><br />Total words:  " +
     words +
     "<br />Total points: " +
     total +
     "<br />Points for Queen Bee: " +
-    Math.floor(total * 0.7);
+    Math.floor(0.7 * total);
 }
-
 function delete_letter() {
-  var str = document.getElementById("guess").value;
-  var len = str.length;
-
-  str = str.slice(0, len - 1) + str.slice(len, len);
-  document.getElementById("guess").value = str;
+  var e = (t = document.getElementById("guess").value).length,
+    t = t.slice(0, e - 1) + t.slice(e, e);
+  document.getElementById("guess").value = t;
 }
+window.onload = function () {
+  (document.getElementById("comb1").style.height = "100px"),
+    (document.getElementById("comb1").style.width = "100px"),
+    (document.getElementById("comb1").style.left = "1px"),
+    (document.getElementById("comb1").style.top = "51px"),
+    (document.getElementById("comb2").style.height = "100px"),
+    (document.getElementById("comb2").style.width = "100px"),
+    (document.getElementById("comb2").style.left = "80px"),
+    (document.getElementById("comb2").style.top = "1px"),
+    (document.getElementById("comb3").style.height = "100px"),
+    (document.getElementById("comb3").style.width = "100px"),
+    (document.getElementById("comb3").style.left = "159px"),
+    (document.getElementById("comb3").style.top = "51px"),
+    (document.getElementById("comb4").style.height = "100px"),
+    (document.getElementById("comb4").style.width = "100px"),
+    (document.getElementById("comb4").style.left = "1px"),
+    (document.getElementById("comb4").style.top = "149px"),
+    (document.getElementById("comb5").style.height = "100px"),
+    (document.getElementById("comb5").style.width = "100px"),
+    (document.getElementById("comb5").style.left = "80px"),
+    (document.getElementById("comb5").style.top = "199px"),
+    (document.getElementById("comb6").style.height = "100px"),
+    (document.getElementById("comb6").style.width = "100px"),
+    (document.getElementById("comb6").style.left = "159px"),
+    (document.getElementById("comb6").style.top = "149px"),
+    (document.getElementById("comb7").style.height = "100px"),
+    (document.getElementById("comb7").style.width = "100px"),
+    (document.getElementById("comb7").style.left = "80px"),
+    (document.getElementById("comb7").style.top = "100px"),
+    get_yesterday(),
+    get_today(),
+    (dark =
+      !0 === localStorage.hasOwnProperty("useDarkMode")
+        ? Number(localStorage.getItem("useDarkMode"))
+        : 1),
+    darkmode();
+};

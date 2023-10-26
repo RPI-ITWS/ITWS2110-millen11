@@ -21,6 +21,15 @@ Design Choices & Optimizations:
    - Used minifier
    - Removed "extra and inefficient" selectors, i.e., "\*" since our content is in body
 
+4. Minified JavaScript
+
+- Combined statements and loops for the function darkmode, much more readable (reducing maintence overhead) and has better worst case complexity
+  -Made an additional function to shorten display()
+  -Created a function to update some repeated element updates
+
 Issues:
 
-4. "Flattening CNAME record". I tried minimizing the CNAME records, but got stonewalled by CloudFlare due to permissions and subscription model.
+1. "Flattening CNAME record". I tried minimizing the CNAME records, but got stonewalled by CloudFlare due to permissions and subscription model.
+
+2. Optimizing the JS
+   a) A lot of the functionality is super niche, making it hard to generalize with loops nad functions

@@ -20,7 +20,12 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/png" href="../favicon.png" />
+
+    <link
+      rel="dns-prefetch shortcut icon"
+      type="image/png"
+      href="../favicon.png"
+    />
 
     <title>Free Bee</title>
   </head>
@@ -45,37 +50,108 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <div id="game">
       <div id="playfield">
         <div id="playfield-bg">
-          <img id="comb1" class="bg" src="comb.png" /><img
-            id="comb2"
-            class="bg"
-            src="comb.png"
-          /><img id="comb3" class="bg" src="comb.png" /><img
-            id="comb4"
-            class="bg"
-            src="comb.png"
-          /><img id="comb5" class="bg" src="comb.png" /><img
-            id="comb6"
-            class="bg"
-            src="comb.png"
-          /><img id="comb7" class="bg" src="comb-inv.png" />
+          <noscript>
+            <img
+              id="comb1"
+              class="bg lazyLoad"
+              rel="dns-prefetch"
+              src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+              data-src="comb.png"
+              alt=""
+            />
+          </noscript>
+          <noscript>
+            <img
+              id="comb2"
+              class="bg lazyLoad"
+              src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+              data-src="comb.png"
+              alt=""
+            />
+          </noscript>
+          <noscript>
+            <img
+              id="comb3"
+              class="bg lazyLoad"
+              rel="dns-prefetch"
+              src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+              data-src="comb.png"
+              alt=""
+            />
+          </noscript>
+          <noscript>
+            <img
+              id="comb4"
+              class="bg lazyLoad"
+              src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+              data-src="comb.png"
+              alt=""
+            />
+          </noscript>
+          <noscript
+            ><img
+              id="comb5"
+              class="bg lazyLoad"
+              rel="dns-prefetch"
+              src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+              data-src="comb.png"
+              alt=""
+            />
+          </noscript>
+          <noscript
+            ><img
+              id="comb6"
+              class="bg lazyLoad"
+              src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+              data-src="comb.png"
+              alt=""
+            />
+          </noscript>
+          <noscript
+            ><img
+              id="comb7"
+              class="bg lazyLoad"
+              rel="dns-prefetch"
+              src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+              data-src="comb.png"
+              alt=""
+            />
+          </noscript>
         </div>
+
         <div id="playfield-fg">
-          <img id="play1" class="fg" width="60" height="100" /><img
-            id="play2"
+          <img
+            rel="dns-prefetch"
+            id="play1"
             class="fg"
             width="60"
             height="100"
-          /><img id="play3" class="fg" width="60" height="100" /><img
-            id="play4"
+          />
+          <img id="play2" class="fg" width="60" height="100" />
+          <img
+            rel="dns-prefetch"
+            id="play3"
             class="fg"
             width="60"
             height="100"
-          /><img id="play5" class="fg" width="60" height="100" /><img
-            id="play6"
+          />
+          <img id="play4" class="fg" width="60" height="100" />
+          <img
+            rel="dns-prefetch"
+            id="play5"
             class="fg"
             width="60"
             height="100"
-          /><img id="play7" class="fg" width="60" height="100" />
+          />
+
+          <img id="play6" class="fg" width="60" height="100" />
+          <img
+            rel="dns-prefetch"
+            id="play7"
+            class="fg"
+            width="60"
+            height="100"
+          />
         </div>
       </div>
     </div>
@@ -163,5 +239,13 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <p id="footer">
       Free Bee is brought to you by Studio Urban Homestead | OpenBSD httpd
     </p>
+    <script src="freebee.js" defer></script>
+    <noscript>
+      <style>
+        .lazyLoad {
+          display: none;
+        }
+      </style>
+    </noscript>
   </body>
 </html>

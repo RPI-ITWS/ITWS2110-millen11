@@ -68,3 +68,5 @@ Issues:
 4. Using lazy loading found to be useless
 5. Loading proper images onto page due to paths/not being in folder
 6. Sometimes the "yesterday" box will say not data is available, i.e., undefined or NaN for no apparent reason.
+
+Link to site: https://millen11rpi611287.eastus.cloudapp.azure.com/ITWS2110-millen11/labs/lab5/

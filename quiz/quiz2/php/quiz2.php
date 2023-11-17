@@ -1,3 +1,33 @@
+<!-- 
+  <?php
+// Database connection parameters
+$host = 'localhost';
+$dbname = 'example_db';
+$username = 'your_username';
+$password = 'your_password';
+
+try {
+    // Create a PDO instance
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+
+    // Set the PDO error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Perform a simple query (select all users)
+    $sql = "SELECT * FROM users";
+    $stmt = $pdo->query($sql);
+
+    // Fetch and display the results
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo "ID: {$row['id']}, Username: {$row['username']}, Email: {$row['email']}<br>";
+    }
+} catch (PDOException $e) {
+    // Handle database connection or query errors
+    echo "Error: " . $e->getMessage();
+}
+?> -->
+
+
 <?php
   //Dealing with Error reporting
   error_reporting(E_ALL);

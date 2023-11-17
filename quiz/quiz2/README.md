@@ -1,6 +1,8 @@
 Author: Na'Sir Miller
 
 **QUIZ 2**
+_RESOURCES_
+https://stackoverflow.com/questions/39790646/accessing-phpmyadmin-database-from-terminal
 
 _DESIGN IMPLEMENTATION_
 Utilizing a lot of code from lab 6
